@@ -10,6 +10,7 @@ Class
     * [.login(username, password)](#Tidal+login) ⇒ <code>Promise</code>
     * [.search(query, type, [limit])](#Tidal+search) ⇒ <code>Promise</code>
     * [.getTrack(id)](#Tidal+getTrack) ⇒ <code>Promise</code>
+    * [.getVideo(id)](#Tidal+getVideo) ⇒ <code>Promise</code>
     * [.getFavoriteTracks()](#Tidal+getFavoriteTracks) ⇒ <code>Promise</code>
     * [.getAlbum(id)](#Tidal+getAlbum) ⇒ <code>Promise</code>
     * [.getAlbumTracks(id)](#Tidal+getAlbumTracks) ⇒ <code>Promise</code>
@@ -148,6 +149,59 @@ tidal.getTrack(64975224)
         "title": "22, A Million",
         "cover": "5ac41fbb-927b-427e-8224-87bf12d218a3"
     }
+  }
+```
+<a name="Tidal+getVideo"></a>
+
+### tidal.getVideo(id) ⇒ <code>Promise</code>
+get a video by its id
+
+**Kind**: instance method of [<code>Tidal</code>](#Tidal)  
+**Fulfil**: <code>Object</code> - a video object (see example for object properties)  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> | video id |
+
+**Example**  
+```js
+tidal.getVideo(101846480)
+// returns a promise that resolves to:
+  {
+    id: 101846480,
+    title: 'Money',
+    volumeNumber: 1,
+    trackNumber: 1,
+    releaseDate: '2019-01-03T00:00:00.000+0000',
+    imagePath: null,
+    imageId: 'c4ed4e50-b6fb-45aa-a672-db1c1f7bf5eb',
+    vibrantColor: '#fad17c',
+    duration: 207,
+    quality: 'MP4_1080P',
+    streamReady: true,
+    streamStartDate: '2019-01-03T00:00:00.000+0000',
+    allowStreaming: true,
+    explicit: true,
+    popularity: 47,
+    type: 'Music Video',
+    adsUrl: null,
+    adsPrePaywallOnly: true,
+    artist: {
+      id: 7301626,
+      name: 'Cardi B',
+      type: 'MAIN',
+      picture: '4d565785-ce34-4877-a8a6-56c4219afea8'
+    },
+    artists: [
+      {
+        id: 7301626,
+        name: 'Cardi B',
+        type: 'MAIN',
+        picture: '4d565785-ce34-4877-a8a6-56c4219afea8'
+      }
+    ],
+    album: null
   }
 ```
 <a name="Tidal+getFavoriteTracks"></a>

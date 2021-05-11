@@ -166,6 +166,61 @@ class Tidal {
     return res.data;
   }
 
+    /**
+  * get a video by its id
+  * @param {number} id - video id
+  * @example
+  * tidal.getVideo(101846480)
+  * // returns a promise that resolves to:
+  {
+    id: 101846480,
+    title: 'Money',
+    volumeNumber: 1,
+    trackNumber: 1,
+    releaseDate: '2019-01-03T00:00:00.000+0000',
+    imagePath: null,
+    imageId: 'c4ed4e50-b6fb-45aa-a672-db1c1f7bf5eb',
+    vibrantColor: '#fad17c',
+    duration: 207,
+    quality: 'MP4_1080P',
+    streamReady: true,
+    streamStartDate: '2019-01-03T00:00:00.000+0000',
+    allowStreaming: true,
+    explicit: true,
+    popularity: 47,
+    type: 'Music Video',
+    adsUrl: null,
+    adsPrePaywallOnly: true,
+    artist: {
+      id: 7301626,
+      name: 'Cardi B',
+      type: 'MAIN',
+      picture: '4d565785-ce34-4877-a8a6-56c4219afea8'
+    },
+    artists: [
+      {
+        id: 7301626,
+        name: 'Cardi B',
+        type: 'MAIN',
+        picture: '4d565785-ce34-4877-a8a6-56c4219afea8'
+      }
+    ],
+    album: null
+  }
+  * @returns {Promise}
+  * @fulfil {Object} - a video object (see example for object properties)
+  * @reject {Error}
+  */
+  async getVideo(id) {
+
+    const res = await this.api({
+      method: 'GET',
+      url: `/videos/${id}?${this.params}`,
+    });
+
+    return res.data;
+  }
+
   /**
   * get your favorite (starred) tracks (requires login() to be called)
   * @example tidal.getFavoriteTracks()
