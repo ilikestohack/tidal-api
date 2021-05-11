@@ -1,5 +1,5 @@
 {
-  "name": "@dastormer/tidal-api",
+  "name": "@dastormer/tidal-api-wrapper",
   "version": "1.8.0",
   "description": "An unofficial API wrapper for Tidal Music",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spencercharest/tidal-api.git"
+    "url": "git+https://github.com/DaStormer/tidal-api.git"
   },
   "keywords": [
     "flac",
@@ -28,11 +28,11 @@
   "author": "Spencer Charest",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spencercharest/tidal-api/issues"
+    "url": "https://github.com/DaStormer/tidal-api/issues"
   },
-  "homepage": "https://github.com/spencercharest/tidal-api#readme",
+  "homepage": "https://github.com/DaStormer/tidal-api#readme",
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0"
   },
   "devDependencies": {
