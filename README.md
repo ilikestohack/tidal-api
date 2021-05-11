@@ -1,10 +1,7 @@
-THIS IS UNMAINTAINED
---------------------
-
 # tidal-api-wrapper
 
-This library is no longer maintained. It will remain hosted in read-only mode for forking.
+Original (archived): https://github.com/spencercharest/tidal-api
 
 ## Documentation
 
-[API Reference](https://github.com/spencercharest/tidal-api/tree/master/docs/api.md)
+[API Reference](https://github.com/DaStormer/tidal-api/tree/master/docs/api.md)
