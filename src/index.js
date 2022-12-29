@@ -678,6 +678,66 @@ class Tidal {
   }
 
   /**
+  * get a mix by its uuid
+  * @param {string} uuid - mix uuid
+  * @example tidal.getMix('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
+  * // returns a promise that resolves to:
+  {
+    "uuid": "1c5d01ed-4f05-40c4-bd28-0f73099e9648",
+    "title": "Get Down On It: Soul, Funk and Disco Supremo",
+    "numberOfTracks": 100,
+    "duration": 25732,
+    "url": "http://www.tidal.com/playlist/1c5d01ed-4f05-40c4-bd28-0f73099e9648"
+  }
+  * @returns {Promise}
+  * @fulfil {Object} - mix object (see example for object properties)
+  * @reject {Error}
+  */
+  async getMix(uuid) {
+
+    const res = await this.api({
+      method: 'GET',
+      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+    });
+    // I have to do logic to make the output similar to make lives easier
+    const mix = res.data.rows[0].modules[0].mix;
+    const mixTrackList = res.data.rows[1].modules[0].pagedList;
+
+    // Get full list duration
+    durations = mixTrackList.items.map(a=> (a.duration))
+    let durationTotal = 0;
+    for (let duration of durations){ durationTotal += duration }
+
+    const outputData = {
+      uuid,
+      "title": `Mix: ${mix.title} - ${mix.subTitle}`,
+      "numberOfTracks": mixTrackList.totalNumberOfItems,
+      "duration": durationTotal,
+      "url": `http://www.tidal.com/browse/mix/${uuid}`
+    };
+    return res.data;
+  }
+
+  /**
+  * get mix tracks by mix uuid
+  * @param {string} uuid - mix uuid
+  * @example tidal.getMixTracks('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
+  * @returns {Promise}
+  * @fulfil {Array} - an array of track objects
+  * @reject {Error}
+  * @see {@link Tidal#getTrack} - track object example
+  */
+  async getMixTracks(uuid) {
+
+    const res = await this.api({
+      method: 'GET',
+      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+    });
+
+    return res.data.rows[1].modules[0].pagedList.items;
+  }
+
+  /**
   * get valid urls to artist pictures
   * @param {string} uuid - artist picture uuid (can be found as picture property in artist object)
   * @example tidal.artistPicToUrl('04d63cd8-a1a5-42e0-b1ec-8e336b7d9200')
@@ -718,6 +778,36 @@ class Tidal {
       md: `${baseUrl}/320x320.jpg`,
       lg: `${baseUrl}/640x640.jpg`,
       xl: `${baseUrl}/1280x1280.jpg`,
+    };
+  }
+
+  /**
+  * get valid urls to mix art
+  * @param {string} uuid - mix uuid
+  * @example tidal.getMixArt('9a56f482-e9cf-46c3-bb21-82710e7854d4')
+  * // returns
+  {
+    sm: 'https://resources.tidal.com/images/9a56f482-e9cf-46c3-bb21-82710e7854d4/160x160.jpg',
+    md: 'https://resources.tidal.com/images/9a56f482-e9cf-46c3-bb21-82710e7854d4/320x320.jpg',
+    lg: 'https://resources.tidal.com/images/9a56f482-e9cf-46c3-bb21-82710e7854d4/640x640.jpg',
+    xl: undefined
+  }
+  * @returns {Object}
+  */
+  async getMixArt(uuid) {
+    const res = await this.api({
+      method: 'GET',
+      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+    });
+
+    // I have to do logic to make the output similar to make lives easier
+    const mix = res.data.rows[0].modules[0].mix;
+    mix.images[size].url
+    return {
+      sm: mix.images["SMALL"].url,
+      md: mix.images["MEDIUM"].url,
+      lg: mix.images["LARGE"].url,
+      xl: undefined,
     };
   }
 
