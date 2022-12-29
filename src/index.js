@@ -697,14 +697,14 @@ class Tidal {
 
     const res = await this.api({
       method: 'GET',
-      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+      url: `/pages/mix?mixId=${uuid}&${this.localeParams}`,
     });
     // I have to do logic to make the output similar to make lives easier
     const mix = res.data.rows[0].modules[0].mix;
     const mixTrackList = res.data.rows[1].modules[0].pagedList;
 
     // Get full list duration
-    durations = mixTrackList.items.map(a=> (a.duration))
+    let durations = mixTrackList.items.map(a=> (a.duration))
     let durationTotal = 0;
     for (let duration of durations){ durationTotal += duration }
 
@@ -715,7 +715,7 @@ class Tidal {
       "duration": durationTotal,
       "url": `http://www.tidal.com/browse/mix/${uuid}`
     };
-    return res.data;
+    return outputData;
   }
 
   /**
@@ -731,7 +731,7 @@ class Tidal {
 
     const res = await this.api({
       method: 'GET',
-      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+      url: `/pages/mix?mixId=${uuid}&${this.localeParams}`,
     });
 
     return res.data.rows[1].modules[0].pagedList.items;
@@ -797,7 +797,7 @@ class Tidal {
   async getMixArt(uuid) {
     const res = await this.api({
       method: 'GET',
-      url: `/pages/mix?mixid=${uuid}&${this.params}`,
+      url: `/pages/mix?mixId=${uuid}&${this.params}`,
     });
 
     // I have to do logic to make the output similar to make lives easier
