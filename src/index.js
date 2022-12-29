@@ -166,7 +166,7 @@ class Tidal {
     return res.data;
   }
 
-    /**
+  /**
   * get a video by its id
   * @param {number} id - video id
   * @example
@@ -700,20 +700,18 @@ class Tidal {
       url: `/pages/mix?mixId=${uuid}&${this.localeParams}`,
     });
     // I have to do logic to make the output similar to make lives easier
-    const mix = res.data.rows[0].modules[0].mix;
+    const { mix } = res.data.rows[0].modules[0];
     const mixTrackList = res.data.rows[1].modules[0].pagedList;
 
     // Get full list duration
-    let durations = mixTrackList.items.map(a=> (a.duration))
-    let durationTotal = 0;
-    for (let duration of durations){ durationTotal += duration }
+    const durationTotal = mixTrackList.items.map(a => a.duration).reduce((a, b) => a + b, 0);
 
     const outputData = {
       uuid,
-      "title": `Mix: ${mix.title} - ${mix.subTitle}`,
-      "numberOfTracks": mixTrackList.totalNumberOfItems,
-      "duration": durationTotal,
-      "url": `http://www.tidal.com/browse/mix/${uuid}`
+      title: `Mix: ${mix.title} - ${mix.subTitle}`,
+      numberOfTracks: mixTrackList.totalNumberOfItems,
+      duration: durationTotal,
+      url: `http://www.tidal.com/browse/mix/${uuid}`,
     };
     return outputData;
   }
@@ -801,12 +799,11 @@ class Tidal {
     });
 
     // I have to do logic to make the output similar to make lives easier
-    const mix = res.data.rows[0].modules[0].mix;
-    mix.images[size].url
+    const { mix } = res.data.rows[0].modules[0];
     return {
-      sm: mix.images["SMALL"].url,
-      md: mix.images["MEDIUM"].url,
-      lg: mix.images["LARGE"].url,
+      sm: mix.images.SMALL.url,
+      md: mix.images.MEDIUM.url,
+      lg: mix.images.LARGE.url,
       xl: undefined,
     };
   }
