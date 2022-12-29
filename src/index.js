@@ -795,7 +795,7 @@ class Tidal {
   async getMixArt(uuid) {
     const res = await this.api({
       method: 'GET',
-      url: `/pages/mix?mixId=${uuid}&${this.params}`,
+      url: `/pages/mix?mixId=${uuid}&${this.localeParams}`,
     });
 
     // I have to do logic to make the output similar to make lives easier
